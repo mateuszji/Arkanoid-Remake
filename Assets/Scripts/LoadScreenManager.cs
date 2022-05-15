@@ -10,7 +10,7 @@ public class LoadScreenManager : MonoBehaviour
 
     void Start()
     {
-        Screen.SetResolution(768, 1366, false);
+        Screen.SetResolution(540, 960, false);
         if (!pressKeyText) pressKeyText = GameObject.Find("PressKeyText");
 
         pressKeyText.SetActive(false);
