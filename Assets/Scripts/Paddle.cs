@@ -33,13 +33,13 @@ public class Paddle : MonoBehaviour
         paddlePosY = transform.position.y;
     }
 
-
     void Update()
     {
         if (!mainCamera || !sr) return;
 
         movePaddle();
     }
+
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.tag =="Ball")

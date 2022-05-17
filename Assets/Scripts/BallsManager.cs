@@ -22,12 +22,15 @@ public class BallsManager : MonoBehaviour
     private Ball ballPrefab;
     private Ball initBall;
     private Rigidbody2D initBallRb;
-    public float initBallSpeed = 300;
+    [HideInInspector]
+    public float initBallSpeed = 500;
     public List<Ball> Balls { get; set; }
+
     private void Start()
     {
         InitBall();
     }
+
     private void Update()
     {
         if(!GameManager.Instance.isPlayingNow)
@@ -44,6 +47,7 @@ public class BallsManager : MonoBehaviour
             }
         }
     }
+
     private void InitBall()
     {
         Vector3 paddlePos = Paddle.Instance.gameObject.transform.position;
