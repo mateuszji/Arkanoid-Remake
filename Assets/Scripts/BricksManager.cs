@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,9 +18,58 @@ public class BricksManager : MonoBehaviour
 
     #endregion
 
+    public int currentLevel;
     public Sprite[] bricksRed;
     public Sprite[] bricksGreen;
     public Sprite[] bricksBlue;
+    [SerializeField]
+    private Brick brickPrefab;
+
+    private int maxRows = 10;
+    private int maxCols = 5;
+    public List<int[,]> LevelsData { get; set; }
+
+    private GameObject bricksContainer;
+
+    private float initSpawnPosX = -1.6f;
+    private float initSpawnPosY = 3f;
+    private float brickShiftX = 0.8f;
+    private float brickShiftY = 0.25f;
+
+
+    private void Start()
+    {
+        bricksContainer = new GameObject("--- BRICKS ---");
+        LevelsData = loadLevels();
+        generateBricks();
+    }
+
+    private void generateBricks()
+    {
+        int[,] currentLevelData = LevelsData[currentLevel];
+        float currentSpawnX = initSpawnPosX;
+        float currentSpawnY = initSpawnPosY;
+
+        for (int row = 0; row < maxRows; row++)
+        {
+            for (int col = 0; col < maxCols; col++)
+            {
+                int brickType = currentLevelData[row, col];
+                if (brickType != 0)
+                {
+                    Brick newBrick = Instantiate(brickPrefab, new Vector3(currentSpawnX, currentSpawnY, 0.0f), Quaternion.identity) as Brick;
+                    newBrick.transform.SetParent(bricksContainer.transform);
+                    newBrick.hitsToDestroy = brickType;
+                }
+
+                currentSpawnX += brickShiftX;
+                if(col == maxCols - 1)
+                    currentSpawnX = initSpawnPosX;
+            }
+
+            currentSpawnY -= brickShiftY;
+        }
+    }
 
     public Sprite getSprite(string color, int hits)
     {
@@ -40,7 +89,38 @@ public class BricksManager : MonoBehaviour
     public string generateColor()
     {
         string[] colorsS = { "red", "green", "blue" };
-        int index = Random.Range(0, colorsS.Length);
+        int index = UnityEngine.Random.Range(0, colorsS.Length);
         return colorsS[index];
+    }
+
+    private List<int[,]> loadLevels()
+    {
+        List<int[,]> levelsData = new List<int[,]>();
+        levelsData.Add(null);
+        string[] rows;
+        int[,] currentLevel;
+        int currentRow;
+        string[] bricks;
+        foreach (TextAsset level in Resources.LoadAll("Levels", typeof(TextAsset)))
+        {
+            rows = level.text.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+            currentLevel = new int[maxRows, maxCols];
+            currentRow = 0;
+            for(int row = 0; row < rows.Length; row++)
+            {
+                bricks = rows[row].Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                for(int col = 0; col < bricks.Length; col++)
+                {
+                    currentLevel[currentRow, col] = int.Parse(bricks[col]);
+                }
+
+                currentRow++;
+            }
+
+            int levelIndex = int.Parse(level.name);
+            levelsData.Insert(levelIndex, currentLevel);
+        }
+
+        return levelsData;
     }
 }

@@ -23,7 +23,7 @@ public class BallsManager : MonoBehaviour
     private Ball initBall;
     private Rigidbody2D initBallRb;
     [HideInInspector]
-    public float initBallSpeed = 500;
+    public float initBallSpeed = 300;
     public List<Ball> Balls { get; set; }
 
     private void Start()
@@ -54,6 +54,7 @@ public class BallsManager : MonoBehaviour
         Vector3 startPos = new Vector3(paddlePos.x, paddlePos.y + 0.35f, 0);
         initBall = Instantiate(ballPrefab, startPos, Quaternion.identity);
         initBallRb = initBall.GetComponent<Rigidbody2D>();
+        initBall.name = "Default Ball";
 
         Balls = new List<Ball>
         {

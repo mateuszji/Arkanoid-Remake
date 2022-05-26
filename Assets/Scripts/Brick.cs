@@ -14,7 +14,6 @@ public class Brick : MonoBehaviour
 
         color = BricksManager.Instance.generateColor();
         sr.sprite = BricksManager.Instance.getSprite(color, hitsToDestroy);
-        Debug.Log(sr.sprite.bounds);
     }
 
     private void OnCollisionEnter2D(Collision2D other)
