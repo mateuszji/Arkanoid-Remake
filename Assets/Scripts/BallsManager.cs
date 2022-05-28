@@ -60,7 +60,7 @@ public class BallsManager : MonoBehaviour
         Balls = new List<Ball> { initBall };
     }
 
-    public void resetBalls()
+    public void ResetBalls()
     {
         foreach(var ball in Balls.ToList())
         {

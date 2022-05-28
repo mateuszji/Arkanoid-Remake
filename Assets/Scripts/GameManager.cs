@@ -44,30 +44,30 @@ public class GameManager : MonoBehaviour
         this.lives = availableLives;
         livesCountTMP.text = "LIVES: " + Environment.NewLine + lives;
         currentLevelTMP.text = currentLevel.ToString();
-        Ball.onBallDestroy += onBallDestroy;
-        Brick.onBrickDestroy += onBrickDestroy;
+        Ball.onBallDestroy += OnBallDestroy;
+        Brick.onBrickDestroy += OnBrickDestroy;
     }
 
-    private void onBrickDestroy(Brick brick)
+    private void OnBrickDestroy(Brick brick)
     {
         score += 10;
         scoreTMP.text = "SCORE: " + Environment.NewLine + score.ToString().PadLeft(6, '0');
 
         if (BricksManager.Instance.remainingBricks.Count <= 0)
         {
-            BallsManager.Instance.resetBalls();
+            BallsManager.Instance.ResetBalls();
             isPlayingNow = false;
             currentLevel++;
             if (currentLevel >= BricksManager.Instance.levelsData.Count)
-                showWinScreen();
+                ShowPanelUI(winScreen);
             else
             {
-                BricksManager.Instance.loadLevel(currentLevel);
+                BricksManager.Instance.LoadLevel(currentLevel);
                 currentLevelTMP.text = currentLevel.ToString();
             }
         }
     }
-    private void onBallDestroy(Ball ball)
+    private void OnBallDestroy(Ball ball)
     {
         if (BallsManager.Instance.Balls.Count <= 0)
         {
@@ -75,31 +75,28 @@ public class GameManager : MonoBehaviour
             livesCountTMP.text = "LIVES: " + Environment.NewLine + lives;
             if (lives <= 0)
             {
-                gameOverScreen.SetActive(true);
-                UpdateHighScore(score);
-                gameOverScreen.transform.Find("ScoreText").GetComponent<TMP_Text>().text = "YOUR SCORE: " + Environment.NewLine + score.ToString().PadLeft(6, '0');
-                gameOverScreen.transform.Find("HighScoreText").GetComponent<TMP_Text>().text = "HIGH SCORE: " + Environment.NewLine + PlayerPrefs.GetInt("HighScore").ToString().PadLeft(6, '0');
+                ShowPanelUI(gameOverScreen);
             }
             else
             {
-                BallsManager.Instance.resetBalls();
+                BallsManager.Instance.ResetBalls();
                 isPlayingNow = false;
-                BricksManager.Instance.loadLevel(currentLevel);
+                BricksManager.Instance.LoadLevel(currentLevel);
             }
         }
     }
 
-    public void restartGame()
+    public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    private void showWinScreen()
+    private void ShowPanelUI(GameObject panel)
     {
-        winScreen.SetActive(true);
+        panel.SetActive(true);
         UpdateHighScore(score);
-        winScreen.transform.Find("ScoreText").GetComponent<TMP_Text>().text = "YOUR SCORE: " + Environment.NewLine + score.ToString().PadLeft(6, '0');
-        winScreen.transform.Find("HighScoreText").GetComponent<TMP_Text>().text = "HIGH SCORE: " + Environment.NewLine + PlayerPrefs.GetInt("HighScore").ToString().PadLeft(6, '0');
+        panel.transform.Find("ScoreText").GetComponent<TMP_Text>().text = "YOUR SCORE: " + Environment.NewLine + score.ToString().PadLeft(6, '0');
+        panel.transform.Find("HighScoreText").GetComponent<TMP_Text>().text = "HIGH SCORE: " + Environment.NewLine + PlayerPrefs.GetInt("HighScore").ToString().PadLeft(6, '0');
     }
 
     private void UpdateHighScore(int score)
@@ -114,7 +111,7 @@ public class GameManager : MonoBehaviour
 
     private void OnDisable()
     {
-        Ball.onBallDestroy -= onBallDestroy;
-        Brick.onBrickDestroy -= onBrickDestroy;
+        Ball.onBallDestroy -= OnBallDestroy;
+        Brick.onBrickDestroy -= OnBrickDestroy;
     }
 }

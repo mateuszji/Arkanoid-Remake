@@ -15,8 +15,8 @@ public class Brick : MonoBehaviour
     {
         if (!sr) sr = GetComponent<SpriteRenderer>();
 
-        color = BricksManager.Instance.generateColor();
-        sr.sprite = BricksManager.Instance.getSprite(color, hitsToDestroy);
+        color = BricksManager.Instance.GenerateColor();
+        sr.sprite = BricksManager.Instance.GetSprite(color, hitsToDestroy);
         sr.sortingLayerName = "Brick";
     }
 
@@ -29,7 +29,7 @@ public class Brick : MonoBehaviour
     private void HitBrick()
     {
         hitsToDestroy--;
-        AudioManager.Instance.breakBrick();
+        AudioManager.Instance.BreakBrick();
 
         if (hitsToDestroy <= 0)
         {
@@ -38,7 +38,7 @@ public class Brick : MonoBehaviour
             Destroy(gameObject);
         }
         else
-            sr.sprite = BricksManager.Instance.getSprite(color, hitsToDestroy);
+            sr.sprite = BricksManager.Instance.GetSprite(color, hitsToDestroy);
 
 
     }

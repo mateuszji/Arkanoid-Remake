@@ -43,10 +43,10 @@ public class BricksManager : MonoBehaviour
     {
         bricksContainer = new GameObject("--- BRICKS ---");
         levelsData = loadLevels();
-        generateBricks();
+        GenerateBricks();
     }
 
-    private void generateBricks()
+    private void GenerateBricks()
     {
         remainingBricks = new List<Brick>();
         int[,] currentLevelData = levelsData[GameManager.Instance.currentLevel];
@@ -75,7 +75,7 @@ public class BricksManager : MonoBehaviour
         }
     }
 
-    public Sprite getSprite(string color, int hits)
+    public Sprite GetSprite(string color, int hits)
     {
         switch(color)
         {
@@ -90,14 +90,14 @@ public class BricksManager : MonoBehaviour
         }
     }
 
-    public string generateColor()
+    public string GenerateColor()
     {
         string[] colorsS = { "red", "green", "blue" };
         int index = UnityEngine.Random.Range(0, colorsS.Length);
         return colorsS[index];
     }
 
-    private List<int[,]> loadLevels()
+    private List<int[,]> LoadLevels()
     {
         List<int[,]> levelsData = new List<int[,]>();
         levelsData.Add(null);
@@ -128,13 +128,13 @@ public class BricksManager : MonoBehaviour
         return levelsData;
     }
 
-    public void loadLevel(int level)
+    public void LoadLevel(int level)
     {
-        clearRemainingBricks();
-        generateBricks();
+        ClearRemainingBricks();
+        GenerateBricks();
     }
 
-    private void clearRemainingBricks()
+    private void ClearRemainingBricks()
     {
         foreach (Brick brick in remainingBricks.ToList())
         {

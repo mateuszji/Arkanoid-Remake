@@ -37,7 +37,7 @@ public class Paddle : MonoBehaviour
     {
         if (!mainCamera || !sr) return;
 
-        movePaddle();
+        MovePaddle();
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -59,7 +59,7 @@ public class Paddle : MonoBehaviour
         }
     }
 
-    private void movePaddle()
+    private void MovePaddle()
     {
         float paddleShift = (defaultPaddleWithInPixels - ((defaultPaddleWithInPixels / 2) * sr.size.x)) / 2f;
         float leftClamp = defaultClamp - paddleShift;

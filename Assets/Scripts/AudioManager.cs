@@ -34,7 +34,7 @@ public class AudioManager : MonoBehaviour
         audioSource.Play();
     }
 
-    public void breakBrick()
+    public void BreakBrick()
     {
         audioSource.PlayOneShot(brickBreakSound, 1f);
     }
