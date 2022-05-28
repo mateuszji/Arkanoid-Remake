@@ -20,17 +20,23 @@ public class Paddle : MonoBehaviour
 
     private Camera mainCamera;
     private SpriteRenderer sr;
+    private BoxCollider2D boxCollider;
     private float paddlePosY;
     private float mousePosPixels;
     private float mousePosX;
     private float defaultPaddleWithInPixels = 192;
     private float defaultClamp = 128;
+    public bool isTransforming { get; set; }
+    private int extendDuration = 10;
+    private float paddleWidth = 2f;
 
     void Start()
     {
         mainCamera = FindObjectOfType<Camera>();
         sr = GetComponent<SpriteRenderer>();
+        boxCollider = GetComponent<BoxCollider2D>();
         paddlePosY = transform.position.y;
+        isTransforming = false;
     }
 
     void Update()
@@ -67,5 +73,50 @@ public class Paddle : MonoBehaviour
         mousePosPixels = Mathf.Clamp(Input.mousePosition.x, leftClamp, rightClamp);
         mousePosX = mainCamera.ScreenToWorldPoint(new Vector3(mousePosPixels, 0, 0)).x;
         transform.position = new Vector3(mousePosX, paddlePosY, 0);
+    }
+
+    public void StartChangeWidthAnim(float newWidth)
+    {
+        if(newWidth != sr.size.x)
+            StartCoroutine(AnimateWidthAnim(newWidth));
+    }
+
+    private IEnumerator AnimateWidthAnim(float newWidth)
+    {
+        isTransforming = true;
+        StartCoroutine(ResetPaddleWidth(extendDuration));
+
+        if(newWidth > sr.size.x)
+        {
+            float currentWidth = this.sr.size.x;
+            while (currentWidth < newWidth)
+            {
+                currentWidth += Time.deltaTime * 2;
+                sr.size = new Vector2(currentWidth, sr.size.y);
+                boxCollider.size = new Vector2(currentWidth, boxCollider.size.y);
+                yield return null;
+            }
+        }
+        else
+        {
+            float currentWidth = this.sr.size.x;
+            while (currentWidth > newWidth)
+            {
+                currentWidth -= Time.deltaTime * 2;
+                sr.size = new Vector2(currentWidth, sr.size.y);
+                boxCollider.size = new Vector2(currentWidth, boxCollider.size.y);
+                yield return null;
+            }
+        }
+        sr.size = new Vector2(newWidth, sr.size.y);
+        boxCollider.size = new Vector2(newWidth, boxCollider.size.y);
+
+        isTransforming = false;
+    }
+
+    private IEnumerator ResetPaddleWidth(float buffTime)
+    {
+        yield return new WaitForSeconds(buffTime);
+        StartChangeWidthAnim(paddleWidth);
     }
 }
