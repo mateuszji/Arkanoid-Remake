@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,12 +9,15 @@ public class Brick : MonoBehaviour
     private string color;
     private SpriteRenderer sr;
 
+    public static event Action<Brick> onBrickDestroy;
+
     private void Start()
     {
         if (!sr) sr = GetComponent<SpriteRenderer>();
 
         color = BricksManager.Instance.generateColor();
         sr.sprite = BricksManager.Instance.getSprite(color, hitsToDestroy);
+        sr.sortingLayerName = "Brick";
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -29,6 +33,8 @@ public class Brick : MonoBehaviour
 
         if (hitsToDestroy <= 0)
         {
+            BricksManager.Instance.remainingBricks.Remove(this);
+            onBrickDestroy?.Invoke(this);
             Destroy(gameObject);
         }
         else

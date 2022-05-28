@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class BricksManager : MonoBehaviour
@@ -18,7 +19,6 @@ public class BricksManager : MonoBehaviour
 
     #endregion
 
-    public int currentLevel;
     public Sprite[] bricksRed;
     public Sprite[] bricksGreen;
     public Sprite[] bricksBlue;
@@ -27,7 +27,9 @@ public class BricksManager : MonoBehaviour
 
     private int maxRows = 10;
     private int maxCols = 5;
-    public List<int[,]> LevelsData { get; set; }
+    public List<int[,]> levelsData { get; set; }
+
+    public List<Brick> remainingBricks { get; set; }
 
     private GameObject bricksContainer;
 
@@ -40,16 +42,16 @@ public class BricksManager : MonoBehaviour
     private void Start()
     {
         bricksContainer = new GameObject("--- BRICKS ---");
-        LevelsData = loadLevels();
+        levelsData = loadLevels();
         generateBricks();
     }
 
     private void generateBricks()
     {
-        int[,] currentLevelData = LevelsData[currentLevel];
+        remainingBricks = new List<Brick>();
+        int[,] currentLevelData = levelsData[GameManager.Instance.currentLevel];
         float currentSpawnX = initSpawnPosX;
         float currentSpawnY = initSpawnPosY;
-
         for (int row = 0; row < maxRows; row++)
         {
             for (int col = 0; col < maxCols; col++)
@@ -60,6 +62,8 @@ public class BricksManager : MonoBehaviour
                     Brick newBrick = Instantiate(brickPrefab, new Vector3(currentSpawnX, currentSpawnY, 0.0f), Quaternion.identity) as Brick;
                     newBrick.transform.SetParent(bricksContainer.transform);
                     newBrick.hitsToDestroy = brickType;
+                    
+                    remainingBricks.Add(newBrick);
                 }
 
                 currentSpawnX += brickShiftX;
@@ -122,5 +126,19 @@ public class BricksManager : MonoBehaviour
         }
 
         return levelsData;
+    }
+
+    public void loadLevel(int level)
+    {
+        clearRemainingBricks();
+        generateBricks();
+    }
+
+    private void clearRemainingBricks()
+    {
+        foreach (Brick brick in remainingBricks.ToList())
+        {
+            Destroy(brick.gameObject);
+        }
     }
 }

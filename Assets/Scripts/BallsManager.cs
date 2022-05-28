@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class BallsManager : MonoBehaviour
@@ -56,9 +57,16 @@ public class BallsManager : MonoBehaviour
         initBallRb = initBall.GetComponent<Rigidbody2D>();
         initBall.name = "Default Ball";
 
-        Balls = new List<Ball>
+        Balls = new List<Ball> { initBall };
+    }
+
+    public void resetBalls()
+    {
+        foreach(var ball in Balls.ToList())
         {
-            initBall
-        };
+            Destroy(ball.gameObject);
+        }
+
+        InitBall();
     }
 }

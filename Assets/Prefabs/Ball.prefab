@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1485734063452767853}
   - component: {fileID: 1485734063452767851}
   - component: {fileID: 1485734063452767852}
-  - component: {fileID: 1912396328900214572}
+  - component: {fileID: 5672862995018157569}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Ball
@@ -71,7 +71,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.13
---- !u!114 &1912396328900214572
+--- !u!114 &5672862995018157569
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
