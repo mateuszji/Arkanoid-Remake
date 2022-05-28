@@ -42,7 +42,7 @@ public class BricksManager : MonoBehaviour
     private void Start()
     {
         bricksContainer = new GameObject("--- BRICKS ---");
-        levelsData = loadLevels();
+        levelsData = LoadLevels();
         GenerateBricks();
     }
 
