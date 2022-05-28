@@ -24,6 +24,7 @@ public class BallsManager : MonoBehaviour
     private Ball initBall;
     private Rigidbody2D initBallRb;
     public float initBallSpeed;
+    public int maxBalls;
     public List<Ball> balls { get; set; }
 
     private void Start()
@@ -52,6 +53,8 @@ public class BallsManager : MonoBehaviour
     {
         for(int i = 0; i < count; i++)
         {
+            if (balls.Count >= maxBalls) { return; }
+
             Ball newBall = Instantiate(ballPrefab, transform.position, Quaternion.identity);
             Rigidbody2D newBallRb = newBall.GetComponent<Rigidbody2D>();
             newBallRb.isKinematic = false;

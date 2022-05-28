@@ -542,6 +542,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ballPrefab: {fileID: 5672862995018157569, guid: be47e3f81974bb94bb29eb09c03cdd66, type: 3}
   initBallSpeed: 300
+  maxBalls: 3
 --- !u!1 &382045415
 GameObject:
   m_ObjectHideFlags: 0
@@ -1137,7 +1138,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   availableBuffs:
   - {fileID: 8383608848078704810, guid: 6e8014f0962e5ad4c987fdefb751855d, type: 3}
-  BuffChance: 100
+  - {fileID: 373453487443030453, guid: 66ca3dfda7f1d8f4ca2aabaca8813642, type: 3}
+  BuffChance: 50
 --- !u!1 &847114422
 GameObject:
   m_ObjectHideFlags: 0
