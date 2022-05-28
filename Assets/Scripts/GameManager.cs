@@ -62,6 +62,7 @@ public class GameManager : MonoBehaviour
             else
             {
                 BricksManager.Instance.LoadLevel();
+                AudioManager.Instance.PlayRandomMusic();
                 currentLevelTMP.text = currentLevel.ToString();
             }
             BuffsManager.Instance.ClearSpawnedBuffs();

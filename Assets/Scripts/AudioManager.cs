@@ -28,14 +28,19 @@ public class AudioManager : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
 
-        int index = Random.Range(0, audioList.Length);
-        audioSource.clip = audioList[index];
-        audioSource.loop = true;
-        audioSource.Play();
+        PlayRandomMusic();
     }
 
     public void BreakBrick()
     {
         audioSource.PlayOneShot(brickBreakSound, 1f);
+    }
+
+    public void PlayRandomMusic()
+    {
+        int index = Random.Range(0, audioList.Length);
+        audioSource.clip = audioList[index];
+        audioSource.loop = true;
+        audioSource.Play();
     }
 }

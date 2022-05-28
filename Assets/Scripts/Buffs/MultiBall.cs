@@ -7,7 +7,7 @@ public class MultiBall : Buff
         if(BallsManager.Instance.balls.Count >= BallsManager.Instance.maxBalls) { return; }
         foreach(Ball ball in BallsManager.Instance.balls.ToList())
         {
-            BallsManager.Instance.SpawnBalls(ball.gameObject.transform, 2);
+            BallsManager.Instance.SpawnBalls(ball.gameObject.transform, 2, ball.isSuperBall);
         }
     }
 }

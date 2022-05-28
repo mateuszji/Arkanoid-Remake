@@ -49,13 +49,17 @@ public class BallsManager : MonoBehaviour
         }
     }
 
-    public void SpawnBalls(Transform transform, int count)
+    public void SpawnBalls(Transform transform, int count, bool isSuperBall)
     {
         for(int i = 0; i < count; i++)
         {
             if (balls.Count >= maxBalls) { return; }
 
             Ball newBall = Instantiate(ballPrefab, transform.position, Quaternion.identity);
+            if(isSuperBall)
+            {
+                newBall.StartSuperBall();
+            }
             Rigidbody2D newBallRb = newBall.GetComponent<Rigidbody2D>();
             newBallRb.isKinematic = false;
             newBallRb.AddForce(new Vector2(UnityEngine.Random.Range(-1000, 1000), initBallSpeed));

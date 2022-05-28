@@ -23,15 +23,18 @@ public class Brick : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other)
     {
         if(other.gameObject.tag == "Ball")
-            HitBrick();
+        {
+            bool isSuperBall = other.gameObject.GetComponent<Ball>().isSuperBall;
+            HitBrick(isSuperBall);
+        }
     }
 
-    private void HitBrick()
+    private void HitBrick(bool isSuperBall)
     {
         hitsToDestroy--;
         AudioManager.Instance.BreakBrick();
 
-        if (hitsToDestroy <= 0)
+        if (hitsToDestroy <= 0 || isSuperBall)
         {
             BuffsManager.Instance.GenerateBuff(this.transform);
             BricksManager.Instance.remainingBricks.Remove(this);
