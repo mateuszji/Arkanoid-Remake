@@ -55,21 +55,22 @@ public class GameManager : MonoBehaviour
 
         if (BricksManager.Instance.remainingBricks.Count <= 0)
         {
-            BallsManager.Instance.ResetBalls();
             isPlayingNow = false;
             currentLevel++;
             if (currentLevel >= BricksManager.Instance.levelsData.Count)
                 ShowPanelUI(winScreen);
             else
             {
-                BricksManager.Instance.LoadLevel(currentLevel);
+                BricksManager.Instance.LoadLevel();
                 currentLevelTMP.text = currentLevel.ToString();
             }
+            BuffsManager.Instance.ClearSpawnedBuffs();
+            BallsManager.Instance.ResetBalls();
         }
     }
     private void OnBallDestroy(Ball ball)
     {
-        if (BallsManager.Instance.Balls.Count <= 0)
+        if (BallsManager.Instance.balls.Count <= 0)
         {
             lives--;
             livesCountTMP.text = "LIVES: " + Environment.NewLine + lives;
@@ -79,9 +80,10 @@ public class GameManager : MonoBehaviour
             }
             else
             {
+                BuffsManager.Instance.ClearSpawnedBuffs();
                 BallsManager.Instance.ResetBalls();
                 isPlayingNow = false;
-                BricksManager.Instance.LoadLevel(currentLevel);
+                BricksManager.Instance.LoadLevel();
             }
         }
     }

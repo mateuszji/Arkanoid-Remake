@@ -9,6 +9,6 @@ public class Ball : MonoBehaviour
     public void DestroyBall()
     {
         onBallDestroy?.Invoke(this);
-        Destroy(this.gameObject, 1f);
+        Destroy(this.gameObject);
     }
 }

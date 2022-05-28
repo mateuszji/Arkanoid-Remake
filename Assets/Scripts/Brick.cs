@@ -33,13 +33,12 @@ public class Brick : MonoBehaviour
 
         if (hitsToDestroy <= 0)
         {
+            BuffsManager.Instance.GenerateBuff(this.transform);
             BricksManager.Instance.remainingBricks.Remove(this);
             onBrickDestroy?.Invoke(this);
             Destroy(gameObject);
         }
         else
             sr.sprite = BricksManager.Instance.GetSprite(color, hitsToDestroy);
-
-
     }
 }

@@ -9,7 +9,7 @@ public class DestroyWall : MonoBehaviour
         if(other.gameObject.tag == "Ball")
         {
             Ball ball = other.GetComponent<Ball>();
-            BallsManager.Instance.Balls.Remove(ball);
+            BallsManager.Instance.balls.Remove(ball);
             ball.DestroyBall();
         }
     }

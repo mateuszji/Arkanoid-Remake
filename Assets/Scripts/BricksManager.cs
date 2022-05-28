@@ -128,7 +128,7 @@ public class BricksManager : MonoBehaviour
         return levelsData;
     }
 
-    public void LoadLevel(int level)
+    public void LoadLevel()
     {
         ClearRemainingBricks();
         GenerateBricks();

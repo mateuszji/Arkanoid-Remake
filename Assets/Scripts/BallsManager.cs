@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,16 +17,14 @@ public class BallsManager : MonoBehaviour
         else
             _instance = this;
     }
-
     #endregion
 
     [SerializeField]
     private Ball ballPrefab;
     private Ball initBall;
     private Rigidbody2D initBallRb;
-    [HideInInspector]
-    public float initBallSpeed = 300;
-    public List<Ball> Balls { get; set; }
+    public float initBallSpeed;
+    public List<Ball> balls { get; set; }
 
     private void Start()
     {
@@ -49,20 +48,30 @@ public class BallsManager : MonoBehaviour
         }
     }
 
+    public void SpawnBalls(Transform transform, int count)
+    {
+        for(int i = 0; i < count; i++)
+        {
+            Ball newBall = Instantiate(ballPrefab, transform.position, Quaternion.identity);
+            Rigidbody2D newBallRb = newBall.GetComponent<Rigidbody2D>();
+            newBallRb.isKinematic = false;
+            newBallRb.AddForce(new Vector2(UnityEngine.Random.Range(-1000, 1000), initBallSpeed));
+            balls.Add(newBall);
+        }
+    }
     private void InitBall()
     {
         Vector3 paddlePos = Paddle.Instance.gameObject.transform.position;
         Vector3 startPos = new Vector3(paddlePos.x, paddlePos.y + 0.35f, 0);
         initBall = Instantiate(ballPrefab, startPos, Quaternion.identity);
-        initBallRb = initBall.GetComponent<Rigidbody2D>();
         initBall.name = "Default Ball";
-
-        Balls = new List<Ball> { initBall };
+        initBallRb = initBall.GetComponent<Rigidbody2D>();
+        balls = new List<Ball> { initBall };
     }
 
     public void ResetBalls()
     {
-        foreach(var ball in Balls.ToList())
+        foreach(var ball in balls.ToList())
         {
             Destroy(ball.gameObject);
         }
