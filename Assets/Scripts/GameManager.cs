@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -24,10 +25,13 @@ public class GameManager : MonoBehaviour
     public int currentLevel;
 
     public int availableLives = 3;
+    private int score = 0;
     public int lives { get; set; }
 
     [SerializeField]
     private TMP_Text livesCountTMP;
+    [SerializeField]
+    private TMP_Text scoreTMP;
     [SerializeField]
     private TMP_Text currentLevelTMP;
     [SerializeField]
@@ -38,7 +42,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         this.lives = availableLives;
-        livesCountTMP.text = "LIVES: " + lives;
+        livesCountTMP.text = "LIVES: " + Environment.NewLine + lives;
         currentLevelTMP.text = currentLevel.ToString();
         Ball.onBallDestroy += onBallDestroy;
         Brick.onBrickDestroy += onBrickDestroy;
@@ -46,7 +50,10 @@ public class GameManager : MonoBehaviour
 
     private void onBrickDestroy(Brick brick)
     {
-        if(BricksManager.Instance.remainingBricks.Count <= 0)
+        score += 10;
+        scoreTMP.text = "SCORE: " + Environment.NewLine + score.ToString().PadLeft(6, '0');
+
+        if (BricksManager.Instance.remainingBricks.Count <= 0)
         {
             BallsManager.Instance.resetBalls();
             isPlayingNow = false;
@@ -65,10 +72,13 @@ public class GameManager : MonoBehaviour
         if (BallsManager.Instance.Balls.Count <= 0)
         {
             lives--;
-            livesCountTMP.text = "LIVES: " + lives;
+            livesCountTMP.text = "LIVES: " + Environment.NewLine + lives;
             if (lives <= 0)
             {
                 gameOverScreen.SetActive(true);
+                UpdateHighScore(score);
+                gameOverScreen.transform.Find("ScoreText").GetComponent<TMP_Text>().text = "YOUR SCORE: " + Environment.NewLine + score.ToString().PadLeft(6, '0');
+                gameOverScreen.transform.Find("HighScoreText").GetComponent<TMP_Text>().text = "HIGH SCORE: " + Environment.NewLine + PlayerPrefs.GetInt("HighScore").ToString().PadLeft(6, '0');
             }
             else
             {
@@ -87,6 +97,19 @@ public class GameManager : MonoBehaviour
     private void showWinScreen()
     {
         winScreen.SetActive(true);
+        UpdateHighScore(score);
+        winScreen.transform.Find("ScoreText").GetComponent<TMP_Text>().text = "YOUR SCORE: " + Environment.NewLine + score.ToString().PadLeft(6, '0');
+        winScreen.transform.Find("HighScoreText").GetComponent<TMP_Text>().text = "HIGH SCORE: " + Environment.NewLine + PlayerPrefs.GetInt("HighScore").ToString().PadLeft(6, '0');
+    }
+
+    private void UpdateHighScore(int score)
+    {
+        int oldHighScore = PlayerPrefs.GetInt("HighScore");
+        if (score > oldHighScore)
+        {
+            PlayerPrefs.SetInt("HighScore", score);
+            PlayerPrefs.Save();
+        }
     }
 
     private void OnDisable()

@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -12,7 +13,7 @@ public class MenuManager : MonoBehaviour
     void Start()
     {
         highScore = PlayerPrefs.GetInt("HighScore");
-        highScoreTMP.text = "HIGH SCORE: " + highScore;    
+        highScoreTMP.text = "HIGH SCORE: " + Environment.NewLine + highScore;    
     }
 
     public void PlayGame()
