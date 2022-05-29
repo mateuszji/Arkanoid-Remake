@@ -3,7 +3,7 @@
  
  **Bricks:**
  
- <img src="/Assets/Sprites/Bricks_Red.png" width="280"/> <img src="/Assets/Sprites/Bricks_Green.png" width="280"/> <img src="/Assets/Sprites/Bricks_Blue.png" width="280"/>
+ <img src="/Assets/Sprites/Bricks_Red.png" width="200"/> <img src="/Assets/Sprites/Bricks_Green.png" width="200"/> <img src="/Assets/Sprites/Bricks_Blue.png" width="200"/>
  
  - 3 random colors of bricks (red, green, blue)
  - 3 types of bricks (type depends of hitpoints needed to destroy)
@@ -27,7 +27,7 @@
  - [ ] Custom mode for player (possible to change powerup chance/duration/limits, ball speed, lives, etc.)
 
 # Gallery
- <img src="https://i.imgur.com/Z6D0oi2.png" width="425"/> <img src="https://i.imgur.com/iJod8Zs.png" width="425"/> 
+ <img src="https://i.imgur.com/Z6D0oi2.png" width="400"/> <img src="https://i.imgur.com/iJod8Zs.png" width="400"/> 
 
 # How to create levels
  All levels data are in 'Resources/Levels/' directory. If you want to add new level or edit existing you need to add/edit file with level index in filename (*for example: first level is 1.txt file*).
