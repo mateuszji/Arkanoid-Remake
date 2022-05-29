@@ -30,7 +30,7 @@
  <img src="https://i.imgur.com/Z6D0oi2.png" width="400"/> <img src="https://i.imgur.com/iJod8Zs.png" width="400"/> 
 
 # How to create levels
- **LEVEL GENERATOR**: Open [levenGenerator.html](https://github.com/mateuszji/Arkanoid-Remake/blob/main/levelGenerator.html) in your browser, create your custom level in webUI and save it to *'/Resources/Levels/'* dir with filename *{LevelIndex}.txt*.
+ **LEVEL GENERATOR**: Open [levenGenerator.html](https://htmlpreview.github.io/?https://github.com/mateuszji/Arkanoid-Remake/blob/main/levelGenerator.html) in your browser, create your custom level in webUI and save it to *'/Resources/Levels/'* dir with filename *{LevelIndex}.txt*.
  
  
  All levels data are in 'Resources/Levels/' directory. If you want to add new level or edit existing you need to add/edit file with level index in filename (*for example: first level is 1.txt file*).
