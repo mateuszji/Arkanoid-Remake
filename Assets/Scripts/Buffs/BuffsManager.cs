@@ -25,6 +25,8 @@ public class BuffsManager : MonoBehaviour
     [Range(0, 100)]
     public float BuffChance;
 
+    private float buffSize = 0.5f;
+
     private void Start()
     {
         spawnedBuffs = new List<Buff>();
@@ -56,6 +58,7 @@ public class BuffsManager : MonoBehaviour
 
         Buff prefab = buffList[buffIndex];
         Buff newBuff = Instantiate(prefab, brickPos.position, Quaternion.identity);
+        newBuff.transform.localScale = new Vector3(buffSize, buffSize, buffSize);
 
         spawnedBuffs.Add(newBuff);
 
