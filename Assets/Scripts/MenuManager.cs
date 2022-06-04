@@ -7,6 +7,8 @@ public class MenuManager : MonoBehaviour
 {
     [SerializeField]
     private TMP_Text highScoreTMP;
+    [SerializeField]
+    private GameObject menuUI, loadingUI;
 
     private int highScore;
 
@@ -18,6 +20,8 @@ public class MenuManager : MonoBehaviour
 
     public void PlayGame()
     {
+        menuUI.SetActive(false);
+        loadingUI.SetActive(true);
         SceneManager.LoadScene("Game");
     }
     public void ExitApp()
