@@ -3,14 +3,14 @@
  
  **Bricks:**
  
- <img src="/Assets/Sprites/Bricks_Red.png" width="200"/> <img src="/Assets/Sprites/Bricks_Green.png" width="200"/> <img src="/Assets/Sprites/Bricks_Blue.png" width="200"/>
+ <img src="/Assets/Sprites/Bricks/Bricks_Red.png" width="200"/> <img src="/Assets/Sprites/Bricks/Bricks_Green.png" width="200"/> <img src="/Assets/Sprites/Bricks/Bricks_Blue.png" width="200"/>
  
  - 3 random colors of bricks (red, green, blue)
  - 3 types of bricks (type depends of hitpoints needed to destroy)
 
  **PowerUps:**
  
- <img src="/Assets/Sprites/Bricks_Red.png" width="280"/> <img src="/Assets/Sprites/Bricks_Green.png" width="280"/> <img src="/Assets/Sprites/Bricks_Blue.png" width="280"/>
+ <img src="/Assets/Sprites/Buffs/Buff_MultiBall.png" width="48"/> <img src="/Assets/Sprites/Buffs/Buff_ExtendPaddle.png" width="48"/> <img src="/Assets/Sprites/Buffs/Buff_SuperBall.png" width="48"/>
  
  - **Multi Ball** (spawn more balls, max 3 on screen)
  - **Expand Paddle** (expand paddle from size 2 to size 2.5 for 10 seconds)
@@ -27,7 +27,8 @@
  - [ ] Custom mode for player (possible to change powerup chance/duration/limits, ball speed, lives, etc.)
 
 # Gallery
- <img src="https://i.imgur.com/Z6D0oi2.png" width="400"/> <img src="https://i.imgur.com/iJod8Zs.png" width="400"/> 
+ <img src="https://i.imgur.com/kNDz9GO.png" width="400"/><img src="https://i.imgur.com/drQ7Z21.png" width="400"/>
+ <img src="https://i.imgur.com/Z6D0oi2.png" width="400"/><img src="https://i.imgur.com/bU6qN1c.png" width="400"/>
 
 # How to create levels
  **LEVEL GENERATOR**: Open [levenGenerator.html](https://htmlpreview.github.io/?https://github.com/mateuszji/Arkanoid-Remake/blob/main/levelGenerator.html) in your browser, create your custom level in webUI and save it to *'/Resources/Levels/'* dir with filename *{LevelIndex}.txt*.
